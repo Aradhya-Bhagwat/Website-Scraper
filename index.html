@@ -1,15 +1,557 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Scan any website and reveal its core details with a polished, modern dashboard.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔎</text></svg>">
-    <title>Website Scanner</title>
+    <meta name="description"
+        content="AuditFlow - Premium Corporate website scanner and compliance analyzer for Chartered Accountants.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>💼</text></svg>">
+    <title>AuditFlow | Premium Website Compliance Scanner</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-   
+    
+    <div class="app-container">
+
+        
+        <header class="app-header">
+            <div class="brand">
+                <i class="fa-solid fa-shield-halved logo-icon"></i>
+                <div class="brand-text">
+                    <h1>AuditFlow</h1>
+                    <span class="badge">CA Business Intelligence</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">Scanner Engine Active</span>
+                </div>
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
+                    
+                    <i class="fa-solid fa-sun sun-icon"></i>
+                    
+                    <i class="fa-solid fa-moon moon-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        
+        <main class="app-main">
+            
+            <section class="search-panel">
+                <div class="panel-header">
+                    <h2>Client Website Audit</h2>
+                    <p class="panel-description">Extract entity details, contacts, tax registrations, compliance
+                        ratings, and legal risk markers from any corporate domain.</p>
+                </div>
+
+                <form id="scanForm" class="scan-form">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="url" id="urlInput" placeholder="https://client-company.com" required
+                            autocomplete="off">
+                        <button type="submit" id="scanButton" class="btn btn-primary">
+                            <span>Analyze Website</span>
+                            <i class="fa-solid fa-arrow-right btn-arrow"></i>
+                        </button>
+                    </div>
+
+                    
+                    <div class="scan-options">
+                        <label class="option-check">
+                            <input type="checkbox" id="checkLegal" checked>
+                            <span class="custom-check"></span>
+                            <span class="label-text">Verify Privacy & Terms Policy</span>
+                        </label>
+                        <label class="option-check">
+                            <input type="checkbox" id="checkTax" checked>
+                            <span class="custom-check"></span>
+                            <span class="label-text">Scan for Tax IDs (GST/VAT)</span>
+                        </label>
+                        <label class="option-check">
+                            <input type="checkbox" id="checkSocial" checked>
+                            <span class="custom-check"></span>
+                            <span class="label-text">Extract Leadership & Social Profiles</span>
+                        </label>
+                        <label class="option-check">
+                            <input type="checkbox" id="checkTech" checked>
+                            <span class="custom-check"></span>
+                            <span class="label-text">Analyze Financial / Tech Stack</span>
+                        </label>
+                    </div>
+                </form>
+
+                <div id="errorMessage" class="error-toast hidden">
+                    <i class="fa-solid fa-circle-exclamation error-icon"></i>
+                    <span id="errorText">Invalid URL format. Please include http:// or https://</span>
+                </div>
+            </section>
+
+            
+            <section id="scannerProgress" class="scanner-progress-container hidden">
+                <div class="progress-card">
+                    <div class="radar-container">
+                        <div class="radar-circle circle-1"></div>
+                        <div class="radar-circle circle-2"></div>
+                        <div class="radar-circle circle-3"></div>
+                        <div class="scanner-sweep"></div>
+                        <i class="fa-solid fa-satellite-dish radar-icon"></i>
+                    </div>
+
+                    <div class="progress-info">
+                        <h3>Analyzing Client Site</h3>
+                        <p id="currentProgressStep" class="step-animation">Establishing connection and inspecting
+                            certificate...</p>
+
+                        <div class="progress-bar-wrapper">
+                            <div id="progressBar" class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="scan-checklist">
+                        <div class="check-item" id="step-dns">
+                            <span class="bullet"></span>
+                            <span>Domain Authority & Security Protocols</span>
+                        </div>
+                        <div class="check-item" id="step-meta">
+                            <span class="bullet"></span>
+                            <span>Entity Registration & Metadata Scrape</span>
+                        </div>
+                        <div class="check-item" id="step-compliance">
+                            <span class="bullet"></span>
+                            <span>Legal Policies & Regulatory Disclosures</span>
+                        </div>
+                        <div class="check-item" id="step-financials">
+                            <span class="bullet"></span>
+                            <span>Commerce Integrations & VAT/GST Registrations</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section id="resultsDashboard" class="results-dashboard hidden">
+
+                
+                <div class="dashboard-summary-row">
+                    
+                    <div class="summary-card flex-row">
+                        <div class="gauge-wrapper">
+                            <svg class="gauge-svg" viewBox="0 0 36 36">
+                                <path class="gauge-bg"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="gaugeValuePath" class="gauge-fill" stroke-dasharray="0, 100"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="gauge-text">
+                                <span id="complianceScorePercent">0%</span>
+                            </div>
+                        </div>
+                        <div class="summary-meta">
+                            <h3>Compliance Score</h3>
+                            <p id="complianceRatingLabel">Checking...</p>
+                            <span class="info-help">Weighted metric of required disclosures</span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="summary-card">
+                        <div class="card-icon-header">
+                            <span class="metric-label">Risk Profile</span>
+                            <span id="riskBadge" class="status-badge bg-safe">Low Risk</span>
+                        </div>
+                        <div class="metric-body">
+                            <div class="risk-meter-container">
+                                <div class="risk-bar" id="riskMeterVal" style="width: 15%"></div>
+                            </div>
+                            <div class="risk-markers-desc">
+                                <span id="riskFactorCount">0 critical warnings</span> detected on site
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="summary-card">
+                        <div class="card-icon-header">
+                            <span class="metric-label">Entity Status</span>
+                            <span class="status-badge bg-active">Active</span>
+                        </div>
+                        <div class="metric-body">
+                            <p id="entityBriefName" class="metric-highlight">Acme Corp Ltd</p>
+                            <p id="entityBriefDomain" class="metric-subtext">acme-corp.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="dashboard-grid">
+
+                    
+                    <aside class="dashboard-sidebar">
+                        <nav class="tabs-nav" aria-label="Audit Sections">
+                            <button class="tab-link active" data-target="tab-identity">
+                                <i class="fa-solid fa-building tab-icon"></i>
+                                <span>Entity Identity</span>
+                            </button>
+                            <button class="tab-link" data-target="tab-compliance">
+                                <i class="fa-solid fa-file-invoice-dollar tab-icon"></i>
+                                <span>Legal & Tax</span>
+                            </button>
+                            <button class="tab-link" data-target="tab-contacts">
+                                <i class="fa-solid fa-address-book tab-icon"></i>
+                                <span>Channels & Contacts</span>
+                            </button>
+                            <button class="tab-link" data-target="tab-tech">
+                                <i class="fa-solid fa-laptop-code tab-icon"></i>
+                                <span>Commerce & Tech</span>
+                            </button>
+                            <button class="tab-link" data-target="tab-risks">
+                                <i class="fa-solid fa-triangle-exclamation tab-icon"></i>
+                                <span>Compliance Risks</span>
+                            </button>
+                        </nav>
+
+                        <div class="sidebar-actions">
+                            <button id="printReportBtn" class="btn btn-secondary btn-full">
+                                <i class="fa-solid fa-print btn-icon"></i>
+                                Print Audit Report
+                            </button>
+                            <button id="resetScannerBtn" class="btn btn-tertiary btn-full">
+                                Analyze Another Site
+                            </button>
+                        </div>
+                    </aside>
+
+                    
+                    <main class="dashboard-body">
+
+                        
+                        <div id="tab-identity" class="tab-content active">
+                            <div class="section-card">
+                                <h3>Company Profile</h3>
+                                <p class="card-intro-text">Branding elements, operational description, and structural
+                                    identifiers extracted from the home page and meta descriptions.</p>
+
+                                <div class="data-table-wrapper">
+                                    <table class="data-table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="cell-label">Brand Name</td>
+                                                <td class="cell-value" id="val-brandName">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cell-label">Meta Title</td>
+                                                <td class="cell-value italic" id="val-metaTitle">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cell-label">Business Description</td>
+                                                <td class="cell-value" id="val-description">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cell-label">Entity Structure</td>
+                                                <td class="cell-value" id="val-entityType">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cell-label">Operating Address</td>
+                                                <td class="cell-value" id="val-address">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cell-label">Domain Registration Age</td>
+                                                <td class="cell-value" id="val-domainAge">-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="tab-compliance" class="tab-content">
+                            <div class="section-card">
+                                <h3>Regulatory Filings & Policies</h3>
+                                <p class="card-intro-text">Critical compliance checks for Chartered Accountant auditing.
+                                    Identifies required tax identification statements and legal page availability.</p>
+
+                                <div class="grid-2-col">
+                                    
+                                    <div class="sub-card">
+                                        <h4>Corporate Registration & Taxes</h4>
+                                        <ul class="check-list-data">
+                                            <li>
+                                                <span class="data-label">Tax ID Status:</span>
+                                                <span class="data-val badge-status-inline" id="val-taxStatus">Not
+                                                    Found</span>
+                                            </li>
+                                            <li>
+                                                <span class="data-label">Detected GST/VAT:</span>
+                                                <span class="data-val font-mono" id="val-vatNumber">-</span>
+                                            </li>
+                                            <li>
+                                                <span class="data-label">Corporate ID (CIN/EIN):</span>
+                                                <span class="data-val font-mono" id="val-cinNumber">-</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    
+                                    <div class="sub-card">
+                                        <h4>Mandatory Legal Disclosures</h4>
+                                        <ul class="check-list-data">
+                                            <li>
+                                                <span class="data-label">Privacy Policy:</span>
+                                                <span class="data-val" id="val-privacyPolicy">Checking...</span>
+                                            </li>
+                                            <li>
+                                                <span class="data-label">Terms of Service:</span>
+                                                <span class="data-val" id="val-termsOfService">Checking...</span>
+                                            </li>
+                                            <li>
+                                                <span class="data-label">SSL Encryption:</span>
+                                                <span class="data-val" id="val-sslStatus">Checking...</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="legal-links-list">
+                                    <h4>Detected Policies & Disclaimers</h4>
+                                    <div class="data-table-wrapper">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Document</th>
+                                                    <th>Status</th>
+                                                    <th>Assigned URL Link</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="legalDocsTableBody">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="tab-contacts" class="tab-content">
+                            <div class="section-card">
+                                <h3>Communication Channels</h3>
+                                <p class="card-intro-text">Discovered email contacts, customer service phone channels,
+                                    physical map locations, and social presence pages.</p>
+
+                                <div class="grid-2-col">
+                                    
+                                    <div class="sub-card">
+                                        <h4>Email Endpoints</h4>
+                                        <ul class="channel-list font-mono" id="val-emailList">
+                                            
+                                        </ul>
+                                    </div>
+
+                                    
+                                    <div class="sub-card">
+                                        <h4>Phone & Support Lines</h4>
+                                        <ul class="channel-list font-mono" id="val-phoneList">
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="social-links-card">
+                                    <h4>Social Media & Profiles</h4>
+                                    <div class="social-grid" id="val-socialGrid">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="tab-tech" class="tab-content">
+                            <div class="section-card">
+                                <h3>Commerce Capabilities & Infrastructure</h3>
+                                <p class="card-intro-text">Analyzes the tech stack to determine transactional systems,
+                                    billing methods, and active customer engagement tools.</p>
+
+                                <div class="tech-stack-wrapper">
+                                    <div class="tech-category">
+                                        <h5>E-Commerce Engine & CMS</h5>
+                                        <div class="tech-pills" id="tech-cms">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <h5>Payment Gateways & Integrations</h5>
+                                        <div class="tech-pills" id="tech-payments">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <h5>Analytics & Tax Calculations</h5>
+                                        <div class="tech-pills" id="tech-analytics">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="tech-category">
+                                        <h5>Security & Hosting Providers</h5>
+                                        <div class="tech-pills" id="tech-security">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="tab-risks" class="tab-content">
+                            <div class="section-card">
+                                <h3>Audit Risk Log</h3>
+                                <p class="card-intro-text">Automated alert warnings flagging legal concerns, tax
+                                    documentation shortages, or privacy liability leaks on the client website.</p>
+
+                                <div class="risk-alerts-container" id="riskAlertsList">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </main>
+                </div>
+            </section>
+        </main>
+
+        
+        <section id="printableReport" class="print-only">
+            <div class="print-header">
+                <h2>Corporate Compliance & Business Audit Report</h2>
+                <p class="print-sub">Generated by AuditFlow Scraper Engine</p>
+                <div class="print-meta-line">
+                    <span><strong>Date:</strong> <span id="printDatePlaceholder">July 12, 2026</span></span>
+                    <span><strong>Target Domain:</strong> <span
+                            id="print-domain-target">https://example.com</span></span>
+                </div>
+            </div>
+
+            <div class="print-score-row">
+                <div class="print-score-box">
+                    <span class="label">Compliance Score</span>
+                    <span class="value" id="print-score-val">90%</span>
+                </div>
+                <div class="print-score-box">
+                    <span class="label">Risk Level</span>
+                    <span class="value" id="print-risk-val">Low Risk</span>
+                </div>
+            </div>
+
+            <div class="print-section">
+                <h3>1. Business Identity Profile</h3>
+                <table class="print-table">
+                    <tr>
+                        <td><strong>Official/Brand Name:</strong></td>
+                        <td id="print-brand">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Entity Legal Structure:</strong></td>
+                        <td id="print-structure">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Extracted Address:</strong></td>
+                        <td id="print-address">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Domain Age / Authority:</strong></td>
+                        <td id="print-age">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-section">
+                <h3>2. Regulatory & Tax Disclosures</h3>
+                <table class="print-table">
+                    <tr>
+                        <td><strong>Corporate ID (CIN/EIN):</strong></td>
+                        <td id="print-cin">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Detected VAT/GST:</strong></td>
+                        <td id="print-vat">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSL Security Level:</strong></td>
+                        <td id="print-ssl">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacy Policy Status:</strong></td>
+                        <td id="print-privacy">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Terms of Service Status:</strong></td>
+                        <td id="print-terms">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-section">
+                <h3>3. Discovered Contact Channels</h3>
+                <table class="print-table">
+                    <tr>
+                        <td><strong>Emails Found:</strong></td>
+                        <td id="print-emails">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phone Contacts:</strong></td>
+                        <td id="print-phones">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Profiles:</strong></td>
+                        <td id="print-socials">-</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-section">
+                <h3>4. Risk Assessment & Advisory Remarks</h3>
+                <ul class="print-bullet-list" id="print-risks-list">
+                    
+                </ul>
+            </div>
+
+            <div class="print-footer">
+                <p>Confidential CA Document. Generated for verification purposes. AuditFlow is an audit assistance tool
+                    and does not replace human legal/tax certification.</p>
+            </div>
+        </section>
+
+        
+        <footer class="app-footer">
+            <p>&copy; 2026 AuditFlow Intelligence. All rights reserved. Professional Utility for Chartered Accountants.
+            </p>
+            <div class="footer-meta">
+                <span>V1.0.0</span>
+                <span class="separator">|</span>
+                <a href="#" class="footer-link">Compliance Standards</a>
+                <span class="separator">|</span>
+                <a href="#" class="footer-link">Print Audit Guideline</a>
+            </div>
+        </footer>
+
+    </div>
+
+    
     <script src="script.js"></script>
 </body>
+
 </html>
