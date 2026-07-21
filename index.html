@@ -9,21 +9,21 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>💼</text></svg>">
     <title>AuditFlow | Premium Website Compliance Scanner</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    
+
     <div class="app-container">
 
-        
+
         <header class="app-header">
             <div class="brand">
                 <i class="fa-solid fa-shield-halved logo-icon"></i>
@@ -39,17 +39,17 @@
                     <span class="status-text">Scanner Engine Active</span>
                 </div>
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
-                    
+
                     <i class="fa-solid fa-sun sun-icon"></i>
-                    
+
                     <i class="fa-solid fa-moon moon-icon"></i>
                 </button>
             </div>
         </header>
 
-        
+
         <main class="app-main">
-            
+
             <section class="search-panel">
                 <div class="panel-header">
                     <h2>Client Website Audit</h2>
@@ -68,7 +68,7 @@
                         </button>
                     </div>
 
-                    
+
                     <div class="scan-options">
                         <label class="option-check">
                             <input type="checkbox" id="checkLegal" checked>
@@ -99,7 +99,7 @@
                 </div>
             </section>
 
-            
+
             <section id="scannerProgress" class="scanner-progress-container hidden">
                 <div class="progress-card">
                     <div class="radar-container">
@@ -141,12 +141,12 @@
                 </div>
             </section>
 
-            
+
             <section id="resultsDashboard" class="results-dashboard hidden">
 
-                
+
                 <div class="dashboard-summary-row">
-                    
+
                     <div class="summary-card flex-row">
                         <div class="gauge-wrapper">
                             <svg class="gauge-svg" viewBox="0 0 36 36">
@@ -166,7 +166,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="summary-card">
                         <div class="card-icon-header">
                             <span class="metric-label">Risk Profile</span>
@@ -182,7 +182,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="summary-card">
                         <div class="card-icon-header">
                             <span class="metric-label">Entity Status</span>
@@ -195,10 +195,10 @@
                     </div>
                 </div>
 
-                
+
                 <div class="dashboard-grid">
 
-                    
+
                     <aside class="dashboard-sidebar">
                         <nav class="tabs-nav" aria-label="Audit Sections">
                             <button class="tab-link active" data-target="tab-identity">
@@ -234,10 +234,10 @@
                         </div>
                     </aside>
 
-                    
+
                     <main class="dashboard-body">
 
-                        
+
                         <div id="tab-identity" class="tab-content active">
                             <div class="section-card">
                                 <h3>Company Profile</h3>
@@ -277,7 +277,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div id="tab-compliance" class="tab-content">
                             <div class="section-card">
                                 <h3>Regulatory Filings & Policies</h3>
@@ -285,7 +285,7 @@
                                     Identifies required tax identification statements and legal page availability.</p>
 
                                 <div class="grid-2-col">
-                                    
+
                                     <div class="sub-card">
                                         <h4>Corporate Registration & Taxes</h4>
                                         <ul class="check-list-data">
@@ -305,7 +305,7 @@
                                         </ul>
                                     </div>
 
-                                    
+
                                     <div class="sub-card">
                                         <h4>Mandatory Legal Disclosures</h4>
                                         <ul class="check-list-data">
@@ -337,7 +337,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="legalDocsTableBody">
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -345,7 +345,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div id="tab-contacts" class="tab-content">
                             <div class="section-card">
                                 <h3>Communication Channels</h3>
@@ -353,19 +353,19 @@
                                     physical map locations, and social presence pages.</p>
 
                                 <div class="grid-2-col">
-                                    
+
                                     <div class="sub-card">
                                         <h4>Email Endpoints</h4>
                                         <ul class="channel-list font-mono" id="val-emailList">
-                                            
+
                                         </ul>
                                     </div>
 
-                                    
+
                                     <div class="sub-card">
                                         <h4>Phone & Support Lines</h4>
                                         <ul class="channel-list font-mono" id="val-phoneList">
-                                            
+
                                         </ul>
                                     </div>
                                 </div>
@@ -373,13 +373,13 @@
                                 <div class="social-links-card">
                                     <h4>Social Media & Profiles</h4>
                                     <div class="social-grid" id="val-socialGrid">
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        
+
                         <div id="tab-tech" class="tab-content">
                             <div class="section-card">
                                 <h3>Commerce Capabilities & Infrastructure</h3>
@@ -390,32 +390,32 @@
                                     <div class="tech-category">
                                         <h5>E-Commerce Engine & CMS</h5>
                                         <div class="tech-pills" id="tech-cms">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="tech-category">
                                         <h5>Payment Gateways & Integrations</h5>
                                         <div class="tech-pills" id="tech-payments">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="tech-category">
                                         <h5>Analytics & Tax Calculations</h5>
                                         <div class="tech-pills" id="tech-analytics">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="tech-category">
                                         <h5>Security & Hosting Providers</h5>
                                         <div class="tech-pills" id="tech-security">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        
+
                         <div id="tab-risks" class="tab-content">
                             <div class="section-card">
                                 <h3>Audit Risk Log</h3>
@@ -423,7 +423,7 @@
                                     documentation shortages, or privacy liability leaks on the client website.</p>
 
                                 <div class="risk-alerts-container" id="riskAlertsList">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -433,7 +433,7 @@
             </section>
         </main>
 
-        
+
         <section id="printableReport" class="print-only">
             <div class="print-header">
                 <h2>Corporate Compliance & Business Audit Report</h2>
@@ -525,7 +525,7 @@
             <div class="print-section">
                 <h3>4. Risk Assessment & Advisory Remarks</h3>
                 <ul class="print-bullet-list" id="print-risks-list">
-                    
+
                 </ul>
             </div>
 
@@ -535,7 +535,7 @@
             </div>
         </section>
 
-        
+
         <footer class="app-footer">
             <p>&copy; 2026 AuditFlow Intelligence. All rights reserved. Professional Utility for Chartered Accountants.
             </p>
@@ -550,7 +550,7 @@
 
     </div>
 
-    
+
     <script src="script.js"></script>
 </body>
 
